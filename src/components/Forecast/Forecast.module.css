@@ -1,0 +1,31 @@
+.forecastContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin-top: 20px;
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .forecastTitle {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .dayForecast {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+  }
+  
+  .date, .temp, .wind, .humidity, .weatherIcon {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }

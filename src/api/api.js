@@ -7,13 +7,18 @@ export function useGetWeather() {
 
   async function getWeather() {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      const url = `https://api.openweathermap.org/data/3.0/weather?q=${city}&appid=${apiKey}&units=metric`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
       }
       const data = await response.json();
-      console.log(`Current temperature in ${city}: ${data.main.temp}°C`);
+      return {
+        temp: data.main.temp,
+        wind: data.wind.speed,
+        humidity: data.main.humidity,
+        weatherIcon: data.weather[0].icon,
+      }
     } catch (error) {
       console.error("Error:", error);
     }
