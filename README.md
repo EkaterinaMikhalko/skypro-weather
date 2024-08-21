@@ -1,8 +1,12 @@
-# React + Vite
+# Приложение "Прогноз погоды"
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+### Начало работы
 
-Currently, two official plugins are available:
+Для запуска приложения необходимо ввести команду
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+npm run dev
+
+### Описание приложения
+
+Приложение позволяет узнать прогноз погоды по всему миру на 5 дней вперед с интервалом 3 часа.
+Для выбора города необходимо ввести его название в строку поиска и нажать кнопку "Поиск".

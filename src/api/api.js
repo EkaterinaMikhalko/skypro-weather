@@ -7,15 +7,25 @@ export function useGetWeather() {
 
   async function getWeather() {
     try {
-      const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=ru&units=metric&cnt=40&appid=${apiKey}`;
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+        if (response.status === 404) {
+          throw new Error(`Город "${city}" не найден в базе данных.`);
+        } else {
+          throw new Error(`Произошла ошибка: ${response.status} - ${response.statusText}`);
+        }
       }
       const data = await response.json();
-      console.log(`Current temperature in ${city}: ${data.main.temp}°C`);
+      return data.list.map((item) => ({
+        date: item.dt_txt,
+        temp: item.main.temp,
+        wind: item.wind.speed,
+        humidity: item.main.humidity,
+        weatherIcon: item.weather[0].icon,
+      }));
     } catch (error) {
-      console.error("Error:", error);
+      throw new Error(`Произошла ошибка: ${error.message}`);
     }
   }
 
