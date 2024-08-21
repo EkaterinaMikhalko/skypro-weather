@@ -10,7 +10,11 @@ export function useGetWeather() {
       const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=ru&units=metric&cnt=40&appid=${apiKey}`;
       const response = await fetch(url);
       if (!response.ok) {
-        throw new Error(`HTTP error ${response.status}`);
+        if (response.status === 404) {
+          throw new Error(`Город "${city}" не найден в базе данных.`);
+        } else {
+          throw new Error(`Произошла ошибка: ${response.status} - ${response.statusText}`);
+        }
       }
       const data = await response.json();
       return data.list.map((item) => ({
@@ -21,7 +25,7 @@ export function useGetWeather() {
         weatherIcon: item.weather[0].icon,
       }));
     } catch (error) {
-      console.error("Error:", error);
+      throw new Error(`Произошла ошибка: ${error.message}`);
     }
   }
 
