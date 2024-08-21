@@ -7,18 +7,20 @@ export function useGetWeather() {
 
   async function getWeather() {
     try {
-      const url = `https://api.openweathermap.org/data/3.0/weather?q=${city}&appid=${apiKey}&units=metric`;
+      // const url = `https://api.openweathermap.org/data/3.0/weather?q=${city}&appid=${apiKey}&units=metric`;
+      const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&lang=ru&units=metric&cnt=15&appid=${apiKey}`;
       const response = await fetch(url);
       if (!response.ok) {
         throw new Error(`HTTP error ${response.status}`);
       }
       const data = await response.json();
-      return {
-        temp: data.main.temp,
-        wind: data.wind.speed,
-        humidity: data.main.humidity,
-        weatherIcon: data.weather[0].icon,
-      }
+      return data.list.map((item) => ({
+        date: item.dt_txt,
+        temp: item.main.temp,
+        wind: item.wind.speed,
+        humidity: item.main.humidity,
+        weatherIcon: item.weather[0].icon,
+      }));
     } catch (error) {
       console.error("Error:", error);
     }
